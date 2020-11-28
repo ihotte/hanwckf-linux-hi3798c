@@ -28,10 +28,10 @@ after_success:
 
 deploy:
   provider: releases
-  cleanup: false
   overwrite: true
   file_glob: true
-  token: $GITHUB_TOKEN
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
   file: 
     - output/*.tar.xz
   on:
