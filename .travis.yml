@@ -32,6 +32,6 @@ deploy:
   file: 
     - output/*.tar.xz
   on:
-    repo: hanwckf/linux-hi3798c
+    repo: ihotte/hanwckf-linux-hi3798c
     tags: true
 
