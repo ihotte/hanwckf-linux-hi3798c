@@ -1,13 +1,14 @@
 os: linux
 dist: bionic
 language: shell
-sudo: required
+
 addons:
   apt:
     packages:
     - tree
     - u-boot-tools
     - coreutils
+
 env:
 - KDIR=linux-5.4 KCFG=sn1-5.4.config toolchain=gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu toolchain_url=https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel CROSS_GCC=aarch64-none-linux-gnu-
 - KDIR=linux-5.8 KCFG=sn1-5.8.config toolchain=gcc-arm-9.2-2019.12-x86_64-aarch64-none-linux-gnu toolchain_url=https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-a/9.2-2019.12/binrel CROSS_GCC=aarch64-none-linux-gnu-
@@ -17,12 +18,15 @@ before_script:
   && tar xf ${toolchain}.tar.xz
 - export PATH=$(pwd)/${toolchain}/bin:$PATH
 - ${CROSS_GCC}gcc -v
+
 script:
 - make all
+
 after_success:
 - tar -cJf output/${KDIR}.tar.xz -C output Image modules.tar.xz hi3798cv200-imou-sn1.dtb
 - tree -hn output
 - rm -f output/Image output/modules.tar.xz output/hi3798cv200-imou-sn1.dtb
+
 deploy:
   provider: releases
   cleanup: false
